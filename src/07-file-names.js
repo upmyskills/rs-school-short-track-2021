@@ -13,8 +13,22 @@
  * the output should be ["file", "file(1)", "image", "file(1)(1)", "file(2)"]
  *
  */
-function renameFiles(/* names */) {
-  throw new Error('Not implemented');
+function renameFiles(fileNamesList) {
+  const filesDB = {};
+  const resArr = fileNamesList.map((name) => {
+    if (Object.keys(filesDB).includes(name)) {
+      filesDB[name] += 1;
+      filesDB[`${name}(${filesDB[name]})`] = 0;
+    } else {
+      filesDB[name] = 0;
+    }
+
+    return filesDB[name] === 0 ? `${name}` : `${name}(${filesDB[name]})`;
+  });
+
+  return resArr;
+  // throw new Error('Not implemented');
 }
 
+// renameFiles(["file", "file", "image", "file(1)", "file"]);
 module.exports = renameFiles;

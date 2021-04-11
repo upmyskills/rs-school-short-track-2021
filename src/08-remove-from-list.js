@@ -17,8 +17,19 @@
  * }
  */
 
-function removeKFromList(/* l, k */) {
-  throw new Error('Not implemented');
+function removeKFromList(list, killIt) {
+  // throw new Error('Not implemented');
+  // const numbers = /[0-9]+/gi;
+  // return JSON.stringify(list).match(numbers).map((num) => +num).filter((num) => num !== killIt);
+  let cur = list;
+  const del = killIt;
+  const deleteEnt = (ent) => removeKFromList(ent, del);
+
+  if (cur.value === killIt) cur = cur.next;
+  if (!cur.next) return cur;
+
+  cur.next = deleteEnt(cur.next);
+  return cur;
 }
 
 module.exports = removeKFromList;
